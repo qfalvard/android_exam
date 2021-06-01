@@ -1,16 +1,20 @@
 package com.example.contactpro;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.contactpro.dao.ContactDao;
 import com.example.contactpro.pojos.Contact;
 
 public class DetailActivity extends AppCompatActivity {
@@ -26,6 +30,7 @@ public class DetailActivity extends AppCompatActivity {
     private Button btnLocate;
     private Button btnSms;
     private Contact contact;
+    private Context context;
 
     private String nom;
     private String prenom;
@@ -40,6 +45,8 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        context = getApplicationContext();
 
         tvNomPrenom = findViewById(R.id.tvNomPrenom);
         tvSociete = findViewById(R.id.tvSociete);
@@ -111,6 +118,33 @@ public class DetailActivity extends AppCompatActivity {
         tvEmail.setText(email);
         tvSite.setText(site);
         tvActivite.setText(activite);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_detail_contact,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Intent intent;
+        Contact contactToDelete;
+        ContactDao contactDAO = new ContactDao(context);
+
+        // effectue une action suivant l'item sélectionné
+        // on test avec un switch l'id de l'item
+        switch (item.getItemId()){
+            case R.id.itmDelete:
+                contactToDelete =  getIntent().getParcelableExtra(MainActivity.CONTACT_KEY);
+                contactDAO.delete(contactToDelete);
+                Toast toast = Toast.makeText(getApplicationContext(), "Contact supprimé", Toast.LENGTH_SHORT);
+                toast.show();
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
     
 }

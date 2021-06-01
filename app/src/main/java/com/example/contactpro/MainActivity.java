@@ -103,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent;
-
         // effectue une action suivant l'item sélectionné
         // on test avec un switch l'id de l'item
         switch (item.getItemId()){

@@ -92,7 +92,7 @@ public class AddContactActivity extends AppCompatActivity {
                     Toast toast = Toast.makeText(getApplicationContext(), "Tous les champs doivent être remplis", Toast.LENGTH_SHORT);
                     toast.show();
                 } else {
-                    ContactDao ContactDAO = new ContactDao(context);
+                    ContactDao contactDAO = new ContactDao(context);
                     Contact contact = new Contact();
                     contact.setNom(nom);
                     contact.setPrenom(prenom);
@@ -104,7 +104,7 @@ public class AddContactActivity extends AppCompatActivity {
                     contact.setActivite(activite);
                     contact.setFavoris(0);
 
-                    ContactDAO.add(contact);
+                    contactDAO.add(contact);
 
                     Toast toast = Toast.makeText(getApplicationContext(), "Contact ajouté", Toast.LENGTH_SHORT);
                     toast.show();
