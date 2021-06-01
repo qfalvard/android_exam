@@ -130,17 +130,24 @@ public class DetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent;
         Contact contactToDelete;
+        Contact contactToUpdate;
         ContactDao contactDAO = new ContactDao(context);
 
         // effectue une action suivant l'item sélectionné
         // on test avec un switch l'id de l'item
         switch (item.getItemId()){
             case R.id.itmDelete:
-                contactToDelete =  getIntent().getParcelableExtra(MainActivity.CONTACT_KEY);
+                contactToDelete = getIntent().getParcelableExtra(MainActivity.CONTACT_KEY);
                 contactDAO.delete(contactToDelete);
                 Toast toast = Toast.makeText(getApplicationContext(), "Contact supprimé", Toast.LENGTH_SHORT);
                 toast.show();
                 finish();
+                return true;
+            case R.id.itmUpdate:
+                contactToUpdate = getIntent().getParcelableExtra(MainActivity.CONTACT_KEY);
+                intent = new Intent(DetailActivity.this, UpdateActivity.class);
+                intent.putExtra(MainActivity.CONTACT_KEY, contactToUpdate);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

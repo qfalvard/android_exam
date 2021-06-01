@@ -133,6 +133,7 @@ public class ContactDao extends Dao {
         values.put(ContactDbHelper.CONTACT_EMAIL, Contact.getEmail());
         values.put(ContactDbHelper.CONTACT_WEBSITE, Contact.getWebsite());
         values.put(ContactDbHelper.CONTACT_ACTIVITE, Contact.getActivite());
+        Contact.getId();
 
         //exécute la requete update avec la claure where id = ?
         db.update(ContactDbHelper.CONTACT_TABLE_NAME, values, ContactDbHelper.CONTACT_KEY + " = ?",
